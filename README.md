@@ -1,4 +1,22 @@
 # sam-cli-lambda-serverless-test
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/ba84f6da-4c36-40ff-9c9d-faf75e25e0dd" />
+
+SAM CLI, DynamoDB, AWS Lambda 등을 활용해 서버리스 구축 해보기
+
+## 관련 포스트
+[백과 블로그](https://blog.baekgwa.site/stack/8)
+
+## 작업 진행상황
+- [ ] CRUD 작업
+  - [x] Create
+  - [x] Read
+  - [ ] Update
+  - [ ] Delete
+- [ ] EventBridge + SQS + SNS 실습
+- [ ] CloudWatch Metrics, Lambda 로그, X-RAY 등 모니터링 관련 학습
+- [ ] 기타 외부 소스(ElasticSearch 등)과의 연동 작업 (검색 엔진 추가)
+
+---
 
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders.
 
