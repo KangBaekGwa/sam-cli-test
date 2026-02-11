@@ -54,11 +54,82 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref MyUserTable
       Events:
-        HelloWorld:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+        CreateUser: #이벤트 이름
+          Type: Api
           Properties:
             Path: /user
             Method: post
+
+  # 회원 조회 (ID 기반)
+  GetUserByIdFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: HelloWorldFunction
+      Handler: helloworld.GetUserByIdHandler::handleRequest
+      Runtime: java21
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref MyUserTable
+      # DB 연결 권한 부여.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref MyUserTable
+      Events:
+        GetUserById:
+          Type: Api
+          Properties:
+            Path: /user/{userId}
+            Method: get
+
+  # 회원 조회 (Name 기반, scan)
+  GetUserByNameScanFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: HelloWorldFunction
+      Handler: helloworld.GetUserByNameScanHandler::handleRequest
+      Runtime: java21
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref MyUserTable
+      # DB 연결 권한 부여.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref MyUserTable
+      Events:
+        GetUserByName:
+          Type: Api
+          Properties:
+            Path: /user
+            Method: get
+
+  # 회원 조회 (Name 기반, index - Query)
+  GetUserByNameQueryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: HelloWorldFunction
+      Handler: helloworld.GetUserByNameQueryHandler::handleRequest
+      Runtime: java21
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref MyUserTable
+      # DB 연결 권한 부여.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref MyUserTable
+      Events:
+        GetUserByName:
+          Type: Api
+          Properties:
+            Path: /user/query
+            Method: get
 
   # DB
   MyUserTable:
